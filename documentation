@@ -1,0 +1,31 @@
+/**********************************************************************************************************************************************
+ * All messages passed will be 34 bytes long. These codes apply to both TCP and UDP packets
+ * Byte 0 signifies the type of message:
+ * 
+ * A: Accepted
+ * ---If the client receives a packet with 'A' in Byte 0, it means the server has accepted the connection request. Wait for further *instructions
+ * B: Board
+ * ---Each byte corresponds to its board position (eg: byte 3 is the value for position 3). Valid characters are 'X', 'O', and ' '. All bytes *after byte 9 are ignored
+ * F: First
+ * ---This is sent to the client to indicate it is the first player, and needs to wait for another player
+ * H: Handle
+ * ---Bytes 1-32 will be the handle. All 32 bytes are relevant
+ * I: Idle
+ * --If the querying client receives this message, it means there is no game going on
+ * M: Move
+ * ---Byte 1 is the client's move
+ * N: No
+ * ---If the client receives a packet with 'N' in Byte 0, it means the server is overloaded and is refusing to talk further. Client should *abort with an appropriate error message
+ * P: Port
+ * ---The instructions for the client connect to a TCP port. Bytes 1-5 are the port number, and bytes 6-20 are the hostname 
+ * Q: Query
+ * ---If the server receives a packet with 'Q' in Byte 0, it means the client is querying
+ * R: Result
+ * ---Byte 1 is 'L' for lose or 'W' for win
+ * S: Symbol
+ * ---Byte 1 is the symbol given by the server to the client, designated 'X' or 'O'
+ * T: Turn
+ * ---If the client receives a packet with 'T' in Byte 0, if means it is the client's turn to go
+ * W: Wait
+ * --If the client receives a packet with 'W' in Byte 0, it means the server is busy with a game and the client needs to wait until the current *game is done
+ * ********************************************************************************************************************************************
